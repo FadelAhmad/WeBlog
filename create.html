@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Post – MyBlog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="home-container">
+    <h2>Create New Post</h2>
+    <form id="createForm">
+      <input type="text" id="title" placeholder="Post Title" required>
+      <input type="text" id="category" placeholder="Category" required>
+      <input type="text" id="tags" placeholder="Tags (comma separated)">
+      <textarea id="content" placeholder="Write your content here..." rows="6" required></textarea>
+      <button type="submit">Publish</button>
+    </form>
+    <p><a href="home.html">⬅ Back to Home</a></p>
+  </div>
+
+  <script>
+    document.getElementById("createForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const category = document.getElementById("category").value;
+      const tags = document.getElementById("tags").value.split(",");
+      const content = document.getElementById("content").value;
+
+      const posts = JSON.parse(localStorage.getItem("posts")) || [];
+      const newPost = {
+        id: Date.now(),
+        title,
+        category,
+        tags,
+        content,
+        comments: []
+      };
+
+      posts.push(newPost);
+      localStorage.setItem("posts", JSON.stringify(posts));
+      window.location.href = "home.html";
+    });
+  </script>
+</body>
+</html>
